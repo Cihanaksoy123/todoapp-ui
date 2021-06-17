@@ -1,20 +1,41 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div v-if="isLoggedIn">
+      <NavBar />
+      <router-view />
     </div>
-    <router-view />
+    <div v-if="!isLoggedIn"><LoginView /></div>
   </div>
 </template>
 
+<script>
+// @ is an alias to /src
+import NavBar from "./components/NavBar.vue";
+import LoginView from "./views/Login.vue";
+export default {
+  name: "App",
+  components: { NavBar, LoginView },
+  data: function () {
+    return {
+      isLoggedIn: false,
+    };
+  },
+};
+</script>
+
+
+
 <style lang="scss">
+body {
+  display: flex; //added
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+  align-self: center; //added
+  flex: auto; //added
 }
 
 #nav {
